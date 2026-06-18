@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#060813"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <!-- Icon khóa -->
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_lock"
+        android:tint="#fb7185"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tvBannedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tài khoản đã bị khóa"
+        android:textColor="#ffffff"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Mô tả -->
+    <TextView
+        android:id="@+id/tvBannedMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tài khoản của bạn đã bị khóa bởi quản trị viên.\nNếu bạn cho rằng đây là nhầm lẫn, hãy gửi phản hồi bên dưới."
+        android:textColor="#9ca3af"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Ô nhập phản hồi -->
+    <EditText
+        android:id="@+id/etFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_edittext_dark"
+        android:hint="Nhập lý do bạn muốn mở khóa..."
+        android:textColor="#e5e7eb"
+        android:textColorHint="#4b5563"
+        android:padding="16dp"
+        android:textSize="14sp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Nút gửi phản hồi -->
+    <Button
+        android:id="@+id/btnSendFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/btn_gradient_purple"
+        android:text="Gửi phản hồi đến Admin"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Nút đăng xuất -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/btn_outline_dark"
+        android:text="Đăng xuất"
+        android:textColor="#9ca3af"
+        android:textSize="15sp" />
+
+</LinearLayout>

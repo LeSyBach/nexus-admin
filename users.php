@@ -24,10 +24,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($action) {
                 case 'lock':
                     $auth->disableUser($uid);
+                    // Ghi isBanned vào Firestore để app đọc được
+                    $firestore->updateDocument('users', $uid, [
+                        'isBanned' => true,
+                        'bannedAt' => date('c'),
+                    ]);
                     $msg = "Đã khóa tài khoản: {$user->email}";
                     break;
                 case 'unlock':
                     $auth->enableUser($uid);
+                    // Xóa isBanned trên Firestore
+                    $firestore->updateDocument('users', $uid, [
+                        'isBanned' => false,
+                        'bannedAt' => null,
+                    ]);
                     $msg = "Đã mở khóa tài khoản: {$user->email}";
                     break;
                 case 'delete':
