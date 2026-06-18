@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(\"C:/ProgramData/ComposerSetup/bin/composer.bat\" require *)",
-      "Bash(c:/xampp/php/php.exe index.php)"
+      "Bash(c:/xampp/php/php.exe index.php)",
+      "PowerShell(Test-NetConnection oauth2.googleapis.com -Port 443 -InformationLevel Quiet)",
+      "Read(//c/xampp/**)",
+      "Bash(php -r \"echo gethostbyname\\('oauth2.googleapis.com'\\);\")",
+      "PowerShell(& \"C:\\\\xampp\\\\php\\\\php.exe\" -r \"echo gethostbyname\\('oauth2.googleapis.com'\\);\")"
     ]
   }
 }

@@ -46,10 +46,12 @@ foreach ($users as $u) {
 
 $totalFeedbacks = count($feedbacks);
 
-// 10 user mới nhất (sắp xếp theo creationTime giảm dần)
+// 10 user mới nhất (sắp xếp theo createdAt giảm dần)
 $sortedUsers = $users;
 usort($sortedUsers, function ($a, $b) {
-    return strtotime($b->metadata->creationTime) - strtotime($a->metadata->creationTime);
+    $ta = $a->metadata->createdAt ? $a->metadata->createdAt->getTimestamp() : 0;
+    $tb = $b->metadata->createdAt ? $b->metadata->createdAt->getTimestamp() : 0;
+    return $tb - $ta;
 });
 $latestUsers = array_slice($sortedUsers, 0, 10);
 
