@@ -282,7 +282,7 @@ $bannedUsers = count(array_filter($users, fn($u) => $u->disabled));
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
-                    <input type="text" id="searchInput" placeholder="Tìm theo email, UID..."
+                    <input type="text" id="searchInput" placeholder="Tìm theo tên, email, UID..."
                            class="pl-10 pr-4 py-2 w-64 rounded-xl bg-white/5 border border-white/5 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/20 transition"
                            onkeyup="filterTable()">
                 </div>
@@ -293,6 +293,7 @@ $bannedUsers = count(array_filter($users, fn($u) => $u->disabled));
                     <thead>
                         <tr class="border-b border-white/5">
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">#</th>
+                            <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Tên</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Email</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">UID</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Trạng thái</th>
@@ -302,7 +303,7 @@ $bannedUsers = count(array_filter($users, fn($u) => $u->disabled));
                     </thead>
                     <tbody class="divide-y divide-white/[0.03]">
                         <?php if (empty($users)): ?>
-                            <tr><td colspan="6" class="px-6 py-10 text-center text-gray-600">Chưa có người dùng nào.</td></tr>
+                            <tr><td colspan="7" class="px-6 py-10 text-center text-gray-600">Chưa có người dùng nào.</td></tr>
                         <?php else: ?>
                             <?php foreach ($users as $i => $user): ?>
                                 <?php
@@ -319,12 +320,17 @@ $bannedUsers = count(array_filter($users, fn($u) => $u->disabled));
                                     <td class="px-6 py-3.5 text-gray-500 font-medium"><?= $i + 1 ?></td>
                                     <td class="px-6 py-3.5">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center text-xs font-bold text-white">
-                                                <?= strtoupper(substr($user->email ?? '?', 0, 1)) ?>
-                                            </div>
-                                            <span class="text-gray-200"><?= htmlspecialchars($user->email ?? 'N/A') ?></span>
+                                            <?php if ($user->photoUrl): ?>
+                                                <img src="<?= htmlspecialchars($user->photoUrl) ?>" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-white/10">
+                                            <?php else: ?>
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center text-xs font-bold text-white">
+                                                    <?= strtoupper(substr($user->displayName ?? $user->email ?? '?', 0, 1)) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <span class="text-gray-200 font-medium"><?= htmlspecialchars($user->displayName ?? 'Chưa đặt tên') ?></span>
                                         </div>
                                     </td>
+                                    <td class="px-6 py-3.5 text-gray-400 text-sm"><?= htmlspecialchars($user->email ?? 'N/A') ?></td>
                                     <td class="px-6 py-3.5">
                                         <code class="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded font-mono">
                                             <?= htmlspecialchars(substr($user->uid, 0, 16)) ?><?= strlen($user->uid) > 16 ? '...' : '' ?>

@@ -423,6 +423,7 @@ $labelsJSON  = json_encode($chartLabels);
                     <thead>
                         <tr class="border-b border-white/5">
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">#</th>
+                            <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Tên</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Email</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">UID</th>
                             <th class="text-left px-6 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Trạng thái</th>
@@ -432,7 +433,7 @@ $labelsJSON  = json_encode($chartLabels);
                     <tbody class="divide-y divide-white/[0.03]">
                         <?php if (empty($latestUsers)): ?>
                             <tr>
-                                <td colspan="5" class="px-6 py-10 text-center text-gray-600">Chưa có người dùng nào.</td>
+                                <td colspan="6" class="px-6 py-10 text-center text-gray-600">Chưa có người dùng nào.</td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($latestUsers as $i => $user): ?>
@@ -458,12 +459,17 @@ $labelsJSON  = json_encode($chartLabels);
                                     <td class="px-6 py-3.5 text-gray-500 font-medium"><?= $i + 1 ?></td>
                                     <td class="px-6 py-3.5">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center text-xs font-bold text-white">
-                                                <?= strtoupper(substr($email, 0, 1)) ?>
-                                            </div>
-                                            <span class="text-gray-200"><?= htmlspecialchars($email) ?></span>
+                                            <?php if ($user->photoUrl): ?>
+                                                <img src="<?= htmlspecialchars($user->photoUrl) ?>" alt="" class="w-8 h-8 rounded-full object-cover ring-1 ring-white/10">
+                                            <?php else: ?>
+                                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center text-xs font-bold text-white">
+                                                    <?= strtoupper(substr($user->displayName ?? $email, 0, 1)) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <span class="text-gray-200 font-medium"><?= htmlspecialchars($user->displayName ?? 'Chưa đặt tên') ?></span>
                                         </div>
                                     </td>
+                                    <td class="px-6 py-3.5 text-gray-400 text-sm"><?= htmlspecialchars($email) ?></td>
                                     <td class="px-6 py-3.5">
                                         <code class="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded font-mono">
                                             <?= htmlspecialchars(substr($uid, 0, 16)) ?><?= strlen($uid) > 16 ? '...' : '' ?>
