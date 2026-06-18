@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"C:/ProgramData/ComposerSetup/bin/composer.bat\" require *)",
+      "Bash(c:/xampp/php/php.exe index.php)"
+    ]
+  }
+}
