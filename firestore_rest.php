@@ -200,11 +200,18 @@ class FirestoreRest
     }
 
     /**
-     * Cập nhật một phần document
+     * Cập nhật một phần document (chỉ update field được chỉ định, giữ nguyên field khác)
      */
     public function updateDocument(string $collection, string $documentId, array $data): array
     {
-        $response = $this->client->patch($this->docUrl($collection, $documentId), [
+        // Tạo updateMask từ keys của data để chỉ cập nhật các field được chỉ định
+        $queryParams = [];
+        foreach (array_keys($data) as $key) {
+            $queryParams[] = 'updateMask.fieldPaths=' . urlencode($key);
+        }
+        $url = $this->docUrl($collection, $documentId) . '?' . implode('&', $queryParams);
+
+        $response = $this->client->patch($url, [
             'headers' => $this->headers(),
             'json'    => ['fields' => $this->encodeFields($data)],
         ]);
